@@ -1,6 +1,8 @@
 package ehu.isad.controllers.ui;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import ehu.isad.controllers.ui.mongoui.CMSMongoController;
+import ehu.isad.model.MongoUser;
 import ehu.isad.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,37 +37,40 @@ public class MainController implements Initializable {
     SecurityController securityController;
     private Parent pane9;
     ChartController chartController;
+
     int output=1;
+
+    /*----Mongo Controllers----*/
+    private Parent CMSMongoPane;
+    CMSMongoController cmsMongoController;
+
 
     @FXML
     private Pane pane;
 
     @FXML
-    private Button btn1;
+    private Button btnCMS;
 
     @FXML
-    private Button btn2;
+    private Button btnServer;
 
     @FXML
-    private Button btn3;
+    private Button btnFormatter;
 
     @FXML
-    private Button btn4;
+    private Button btnHistory;
 
     @FXML
-    private Button btn5;
+    private Button btnSettings;
 
     @FXML
-    private Button btn6;
+    private Button btnMultiAdd;
 
     @FXML
-    private Button btn7;
+    private Button btnSecurity;
 
     @FXML
-    private Button btn8;
-
-    @FXML
-    private Button btn9;
+    private Button btnCharts;
 
     @FXML
     private Label lbl_title;
@@ -87,45 +92,51 @@ public class MainController implements Initializable {
     void handleClick(ActionEvent actionEvent) {
 
         pane.getChildren().clear();
-        if (actionEvent.getSource() == btn1) {
+        if (actionEvent.getSource() == btnCMS) {
             output = 1;
-            cmsController.setItems();
-            pane.getChildren().add(pane1);
-            lbl_title.setText("CMS");
+            if(MongoUser.getInstance().getCollection().equals("")) {
+                cmsController.setItems();
+                pane.getChildren().add(pane1);
+                lbl_title.setText("CMS");
+            }
+            else{
+                pane.getChildren().add(CMSMongoPane);
+                lbl_title.setText("CMS Mongo");
+            }
         }
-        if (actionEvent.getSource() == btn2) {
+        if (actionEvent.getSource() == btnServer) {
             output = 2;
             serverController.setItems();
             pane.getChildren().add(pane2);
             lbl_title.setText("Server");
         }
-        if (actionEvent.getSource() == btn3) {
+        if (actionEvent.getSource() == btnFormatter) {
             output = 3;
             pane.getChildren().add(pane3);
             lbl_title.setText("Formatter");
         }
-        if (actionEvent.getSource() == btn4) {
+        if (actionEvent.getSource() == btnHistory) {
             output = 4;
             historyController.setItems();
             pane.getChildren().add(pane4);
             lbl_title.setText("History");
         }
-        if (actionEvent.getSource() == btn6) {
+        if (actionEvent.getSource() == btnSettings) {
             output = 6;
             pane.getChildren().add(pane6);
             lbl_title.setText("Settings");
         }
-        if (actionEvent.getSource() == btn7) {
+        if (actionEvent.getSource() == btnMultiAdd) {
             output = 7;
             pane.getChildren().add(pane7);
             lbl_title.setText("Multi-add");
         }
-        if (actionEvent.getSource() == btn9) {
+        if (actionEvent.getSource() == btnCharts) {
             pane.getChildren().add(pane9);
             lbl_title.setText("Charts");
         }
 
-        if (actionEvent.getSource() == btn8) {
+        if (actionEvent.getSource() == btnSecurity) {
             pane.getChildren().add(pane8);
             lbl_title.setText("Security");
         }
@@ -150,6 +161,7 @@ public class MainController implements Initializable {
     @FXML
     void hoverClose(){
         //TODO
+        //btn_x.set
     }
 
     public void showPopUp() throws IOException {
@@ -232,6 +244,11 @@ public class MainController implements Initializable {
         cmsController = CMSController.getInstance();
         loaderpane1.setController(cmsController);
         pane1 = loaderpane1.load(); //cms
+
+        FXMLLoader loaderpaneCMSMongo = new FXMLLoader(MainController.class.getResource("/panes/Mongo/CMSPaneMongo.fxml"));
+        cmsMongoController = CMSMongoController.getInstance();
+        loaderpane1.setController(cmsMongoController);
+        CMSMongoPane = loaderpane1.load(); //cmsMongo
 
         FXMLLoader loaderpane2 = new FXMLLoader(MainController.class.getResource("/panes/ServerPane.fxml"));
         serverController = ServerController.getInstance();

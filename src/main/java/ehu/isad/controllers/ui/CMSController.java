@@ -28,9 +28,6 @@ import java.util.Date;
 public class CMSController {
 
     @FXML
-    private Pane pane1;
-
-    @FXML
     private TextField textField;
 
     @FXML

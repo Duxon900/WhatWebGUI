@@ -21,21 +21,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    private Parent pane1;
+    private Parent paneCMS;
     CMSController cmsController;
-    private Parent pane2;
+    private Parent paneServer;
     ServerController serverController;
-    private Parent pane3;
+    private Parent paneFormatter;
     FormatterController formatterController;
-    private Parent pane4;
+    private Parent paneHistory;
     HistoryController historyController;
-    private Parent pane6;
+    private Parent paneSettings;
     SettingsController settingsController;
-    private  Parent pane7;
+    private  Parent paneMultiAdd;
     MultiController multiController;
-    private Parent pane8;
+    private Parent paneSecurity;
     SecurityController securityController;
-    private Parent pane9;
+    private Parent paneCharts;
     ChartController chartController;
 
     int output=1;
@@ -96,7 +96,7 @@ public class MainController implements Initializable {
             output = 1;
             if(MongoUser.getInstance().getCollection().equals("")) {
                 cmsController.setItems();
-                pane.getChildren().add(pane1);
+                pane.getChildren().add(paneCMS);
                 lbl_title.setText("CMS");
             }
             else{
@@ -107,37 +107,37 @@ public class MainController implements Initializable {
         if (actionEvent.getSource() == btnServer) {
             output = 2;
             serverController.setItems();
-            pane.getChildren().add(pane2);
+            pane.getChildren().add(paneServer);
             lbl_title.setText("Server");
         }
         if (actionEvent.getSource() == btnFormatter) {
             output = 3;
-            pane.getChildren().add(pane3);
+            pane.getChildren().add(paneFormatter);
             lbl_title.setText("Formatter");
         }
         if (actionEvent.getSource() == btnHistory) {
             output = 4;
             historyController.setItems();
-            pane.getChildren().add(pane4);
+            pane.getChildren().add(paneHistory);
             lbl_title.setText("History");
         }
         if (actionEvent.getSource() == btnSettings) {
             output = 6;
-            pane.getChildren().add(pane6);
+            pane.getChildren().add(paneSettings);
             lbl_title.setText("Settings");
         }
         if (actionEvent.getSource() == btnMultiAdd) {
             output = 7;
-            pane.getChildren().add(pane7);
+            pane.getChildren().add(paneMultiAdd);
             lbl_title.setText("Multi-add");
         }
         if (actionEvent.getSource() == btnCharts) {
-            pane.getChildren().add(pane9);
+            pane.getChildren().add(paneCharts);
             lbl_title.setText("Charts");
         }
 
         if (actionEvent.getSource() == btnSecurity) {
-            pane.getChildren().add(pane8);
+            pane.getChildren().add(paneSecurity);
             lbl_title.setText("Security");
         }
     }
@@ -198,42 +198,42 @@ public class MainController implements Initializable {
                     catch (Exception e){lineint=1;}
                     switch(lineint){
                         case 2:
-                            pane.getChildren().add(pane2);
+                            pane.getChildren().add(paneServer);
                             lbl_title.setText("Server");
                             break;
                         case 3:
-                            pane.getChildren().add(pane3);
+                            pane.getChildren().add(paneFormatter);
                             lbl_title.setText("Formatter");
                             break;
                         case 4:
-                            pane.getChildren().add(pane4);
+                            pane.getChildren().add(paneHistory);
                             lbl_title.setText("History");
                             break;
                         case 5:
-                            pane.getChildren().add(pane8);
+                            pane.getChildren().add(paneSecurity);
                             lbl_title.setText("Security");
                             break;
                         case 6:
-                            pane.getChildren().add(pane6);
+                            pane.getChildren().add(paneSettings);
                             lbl_title.setText("Settings");
                             break;
                         case 7:
-                            pane.getChildren().add(pane7);
+                            pane.getChildren().add(paneMultiAdd);
                             lbl_title.setText("Multi-add");
                             break;
                         case 9:
-                            pane.getChildren().add(pane9);
+                            pane.getChildren().add(paneCharts);
                             lbl_title.setText("Charts");
                         default:
-                            pane.getChildren().add(pane1);
+                            pane.getChildren().add(paneCMS);
                             lbl_title.setText("CMS");
                             break;
                     }
                 }
                 fr.close();
-            } catch(IOException e){ pane.getChildren().add(pane1);}
+            } catch(IOException e){ pane.getChildren().add(paneCMS);}
         } else {
-            pane.getChildren().add(pane1);
+            pane.getChildren().add(paneCMS);
         }
 
 
@@ -243,47 +243,47 @@ public class MainController implements Initializable {
         FXMLLoader loaderpane1 = new FXMLLoader(MainController.class.getResource("/panes/CMSPane.fxml"));
         cmsController = CMSController.getInstance();
         loaderpane1.setController(cmsController);
-        pane1 = loaderpane1.load(); //cms
+        paneCMS = loaderpane1.load(); //cms
 
         FXMLLoader loaderpaneCMSMongo = new FXMLLoader(MainController.class.getResource("/panes/Mongo/CMSPaneMongo.fxml"));
         cmsMongoController = CMSMongoController.getInstance();
-        loaderpane1.setController(cmsMongoController);
-        CMSMongoPane = loaderpane1.load(); //cmsMongo
+        loaderpaneCMSMongo.setController(cmsMongoController);
+        CMSMongoPane = loaderpaneCMSMongo.load(); //cmsMongo
 
         FXMLLoader loaderpane2 = new FXMLLoader(MainController.class.getResource("/panes/ServerPane.fxml"));
         serverController = ServerController.getInstance();
         loaderpane2.setController(serverController);
-        pane2 = loaderpane2.load(); //server
+        paneServer = loaderpane2.load(); //server
 
         FXMLLoader loaderpane3 = new FXMLLoader(MainController.class.getResource("/panes/FormatterPane.fxml"));
         formatterController = FormatterController.getInstance();
         loaderpane3.setController(formatterController);
-        pane3 = loaderpane3.load(); //formatter
+        paneFormatter = loaderpane3.load(); //formatter
 
         FXMLLoader loaderpane4 = new FXMLLoader(MainController.class.getResource("/panes/HistoryPane.fxml"));
         historyController = HistoryController.getInstance();
         loaderpane4.setController(historyController);
-        pane4 = loaderpane4.load(); //history
+        paneHistory = loaderpane4.load(); //history
 
         FXMLLoader loaderpane6 = new FXMLLoader(MainController.class.getResource("/panes/SettingsPane.fxml"));
         settingsController = SettingsController.getInstance();
         loaderpane6.setController(settingsController);
-        pane6 = loaderpane6.load(); //settings
+        paneSettings = loaderpane6.load(); //settings
 
         FXMLLoader loaderpane7 = new FXMLLoader(MainController.class.getResource("/panes/MultiAddPane.fxml"));
         multiController = MultiController.getInstance();
         loaderpane7.setController(multiController);
-        pane7 = loaderpane7.load(); //Multi-add option
+        paneMultiAdd = loaderpane7.load(); //Multi-add option
 
         FXMLLoader loaderpane8 = new FXMLLoader(MainController.class.getResource("/panes/SecurityPane.fxml"));
         securityController = SecurityController.getInstance();
         loaderpane8.setController(securityController);
-        pane8 = loaderpane8.load(); //security
+        paneSecurity = loaderpane8.load(); //security
 
         FXMLLoader loaderpane9 = new FXMLLoader(MainController.class.getResource("/panes/ChartsPane.fxml"));
         chartController = chartController.getInstance();
         loaderpane9.setController(chartController);
-        pane9 = loaderpane9.load(); //charts
+        paneCharts = loaderpane9.load(); //charts
     }
 
     @Override

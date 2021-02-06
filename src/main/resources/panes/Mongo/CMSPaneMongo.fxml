@@ -8,15 +8,14 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ehu.isad.controllers.ui.mongoui.CMSMongoController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="textField" layoutX="17.0" layoutY="34.0" onKeyPressed="#onKeyPressed" prefHeight="26.0" prefWidth="340.0" promptText="Add or filter by URL" stylesheets="@../style.css" />
-      <ComboBox fx:id="comboBox" layoutX="374.0" layoutY="34.0" prefHeight="26.0" prefWidth="140.0" stylesheets="@../style.css" />
-      <Button fx:id="scanBtn" layoutX="529.0" layoutY="33.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../style.css" text="Scan" />
-      <TableView fx:id="cmsTable" layoutY="99.0" prefHeight="368.0" prefWidth="600.0" stylesheets="@../style.css">
+      <ComboBox fx:id="comboBox" layoutX="14.0" layoutY="58.0" prefHeight="26.0" prefWidth="140.0" stylesheets="@../style.css" />
+      <TextField fx:id="textField" layoutX="169.0" layoutY="58.0" onKeyPressed="#onKeyPressed" prefHeight="26.0" prefWidth="340.0" promptText="Add or filter by URL" stylesheets="@../style.css" />
+      <Button fx:id="scanBtn" layoutX="533.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../style.css" text="Scan" />
+      <TableView fx:id="cmsTable" layoutY="126.0" prefHeight="368.0" prefWidth="600.0" stylesheets="@../style.css">
          <columns>
             <TableColumn fx:id="starColumn" editable="false" prefWidth="22.0" resizable="false" sortable="false" />
             <TableColumn fx:id="urlColumn" editable="false" prefWidth="195.0" resizable="false" sortable="false" text="URL" />
@@ -52,4 +51,4 @@
          </columnResizePolicy>
       </TableView>
    </children>
-</Pane>
+</AnchorPane>

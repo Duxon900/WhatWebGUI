@@ -1,44 +1,53 @@
 package ehu.isad.controllers.ui.mongoui;
 
+import ehu.isad.controllers.ui.CMSController;
+import ehu.isad.model.ServerCMSModel;
+import ehu.isad.utils.CmsMongo;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
-public class CMSMongoController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CMSMongoController implements Initializable {
+
+    @FXML
+    private ComboBox<String> comboBox;
 
     @FXML
     private TextField textField;
 
     @FXML
-    private ComboBox<?> comboBox;
-
-    @FXML
     private Button scanBtn;
 
+    /*----Table----*/
     @FXML
-    private TableView<?> cmsTable;
+    private TableView<CmsMongo> cmsTable;
 
     @FXML
     private TableColumn<?, ?> starColumn;
 
     @FXML
-    private TableColumn<?, ?> urlColumn;
+    private TableColumn<CmsMongo, ?> urlColumn;
 
     @FXML
-    private TableColumn<?, ?> cmsColumn;
+    private TableColumn<CmsMongo, ?> cmsColumn;
 
     @FXML
-    private TableColumn<?, ?> lastUpdatedColumn;
+    private TableColumn<CmsMongo, ?> lastUpdatedColumn;
 
-    @FXML
-    private TableColumn<?, ?> starColumn1;
-
+    /*------MenuItem-----*/
     @FXML
     private MenuItem openBrowser;
 
@@ -68,15 +77,16 @@ public class CMSMongoController {
 
     private static CMSMongoController instance=new CMSMongoController();
 
-
-
     @FXML
     void onBrowserRow(ActionEvent event) {
-
     }
 
     @FXML
     void onClick(ActionEvent event) {
+        /**
+         * onClick scan button
+         */
+
 
     }
 
@@ -100,7 +110,33 @@ public class CMSMongoController {
 
     }
 
-
     public static CMSMongoController getInstance() { return instance; }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setItems();
+        filterAll();
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.add("All");
+        list.add("Favorites");
+        comboBox.setValue("All");
+        comboBox.setItems(list);
+        comboBox.setOnAction(e -> {
+            String value = comboBox.getValue();
+            if(value.equals("Favorites")){
+                filterFavorites();
+            }else{
+                filterAll();
+            }
+        });
+        serverCMSController.linkClick(cmsTable);
+        style();
+
+    }
+
+    private void setItems() {
+        urlColumn.setCellValueFactory(new PropertyValueFactory<>("target"));
+        urlColumn.setCellFactory(tc -> new LinkCell());
+        cmsColumn.setCellValueFactory(new PropertyValueFactory<>("plugins"));
+    }
 }

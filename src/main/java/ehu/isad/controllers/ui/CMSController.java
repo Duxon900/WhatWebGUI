@@ -92,6 +92,7 @@ public class CMSController {
         ServerCMSModel model = cmsTable.getSelectionModel().getSelectedItem();
         this.openURL(model.getUrl().getText());
     }
+
     void openURL(String url) throws IOException {
         if(System.getProperty("os.name").toLowerCase().contains("linux")){
             Runtime.getRuntime().exec("sensible-browser " + url);
@@ -213,7 +214,7 @@ public class CMSController {
         }
     }
 
-    private void scan() throws IOException, SQLException {
+    private void scan() throws SQLException {
         if(!textField.getText().equals("")){//there is no url in the textfield
             String url = urlUtils.processUrl(textField.getText());
             if(url!=null){
@@ -263,7 +264,7 @@ public class CMSController {
         filter(filteredData);
     }
 
-    private void filter(FilteredList<ServerCMSModel>filteredData){
+    private void filter(FilteredList<ServerCMSModel> filteredData){
         // 2. Set the filter Predicate whenever the filter changes.
         textField.textProperty().addListener((observable, oldValue, newValue) -> filteredData.setPredicate(cmsmodel -> {
             // If filter text is empty, display all persons.
